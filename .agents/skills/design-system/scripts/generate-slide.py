@@ -8,6 +8,7 @@ NO hardcoded colors, fonts, or spacing allowed
 
 import argparse
 import json
+import os
 from html import escape
 from pathlib import Path
 from datetime import datetime
@@ -28,18 +29,19 @@ def _safe_url(url, default='#'):
         return escape(str(url), quote=True)
     return default
 
-# Paths
+# Paths — project root is the working directory, not the skill's install location
 SCRIPT_DIR = Path(__file__).parent
 DATA_DIR = SCRIPT_DIR.parent / "data"
-TOKENS_CSS = Path(__file__).resolve().parents[4] / "assets" / "design-tokens.css"
-TOKENS_JSON = Path(__file__).resolve().parents[4] / "assets" / "design-tokens.json"
-OUTPUT_DIR = Path(__file__).resolve().parents[4] / "assets" / "designs" / "slides"
+PROJECT_ROOT = Path.cwd()
+TOKENS_CSS = PROJECT_ROOT / "assets" / "design-tokens.css"
+TOKENS_JSON = PROJECT_ROOT / "assets" / "design-tokens.json"
+OUTPUT_DIR = PROJECT_ROOT / "assets" / "designs" / "slides"
 
 # ============ BRAND-COMPLIANT SLIDE TEMPLATE ============
 # ALL values reference CSS variables from design-tokens.css
 
 SLIDE_TEMPLATE = '''<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,8 +88,8 @@ SLIDE_TEMPLATE = '''<!DOCTYPE html>
         .slide {{
             width: 100%;
             aspect-ratio: 16 / 9;
-            padding: var(--slide-padding);
-            background: var(--slide-bg);
+            padding: var(--slide-padding, 3rem);
+            background: var(--slide-bg, var(--color-background, #0a0a0a));
             display: flex;
             flex-direction: column;
             position: relative;
@@ -634,7 +636,7 @@ SLIDE_GENERATORS = {
 }
 
 
-def generate_deck(slides_data, title="Pitch Deck"):
+def generate_deck(slides_data, title="Pitch Deck", tokens_css_url=None):
     """Generate complete deck from slide data list"""
     slides_html = ""
     for slide in slides_data:
@@ -645,8 +647,7 @@ def generate_deck(slides_data, title="Pitch Deck"):
         else:
             print(f"Warning: Unknown slide type '{slide_type}'")
 
-    # Calculate relative path to tokens CSS
-    tokens_rel_path = "../../../assets/design-tokens.css"
+    tokens_rel_path = tokens_css_url if tokens_css_url is not None else "assets/design-tokens.css"
 
     return SLIDE_TEMPLATE.format(
         title=escape(str(title)),
@@ -744,10 +745,13 @@ def main():
             }
         ]
 
-        html = generate_deck(demo_slides, "ClaudeKit Marketing - Pitch Deck")
-
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         output_path = OUTPUT_DIR / f"demo-pitch-{datetime.now().strftime('%y%m%d')}.html"
+        try:
+            tokens_rel = os.path.relpath(TOKENS_CSS, output_path.parent)
+        except ValueError:
+            tokens_rel = str(TOKENS_CSS)
+        html = generate_deck(demo_slides, "ClaudeKit Marketing - Pitch Deck", tokens_rel)
         output_path.write_text(html, encoding='utf-8')
         print(f"Demo deck generated: {output_path}")
 
@@ -755,10 +759,13 @@ def main():
         with open(args.json, 'r') as f:
             data = json.load(f)
 
-        html = generate_deck(data.get('slides', []), data.get('title', 'Presentation'))
-
         output_path = Path(args.output) if args.output else OUTPUT_DIR / f"deck-{datetime.now().strftime('%y%m%d-%H%M')}.html"
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            tokens_rel = os.path.relpath(TOKENS_CSS, output_path.parent)
+        except ValueError:
+            tokens_rel = str(TOKENS_CSS)
+        html = generate_deck(data.get('slides', []), data.get('title', 'Presentation'), tokens_rel)
         output_path.write_text(html, encoding='utf-8')
         print(f"Deck generated: {output_path}")
 

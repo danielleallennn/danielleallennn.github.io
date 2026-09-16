@@ -8,6 +8,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
+errors=0
 
 echo "🔍 Verifying shadcn/ui setup..."
 echo ""
@@ -57,6 +58,7 @@ if [ -f "src/index.css" ] || [ -f "src/globals.css" ] || [ -f "app/globals.css" 
         echo "  @tailwind base;"
         echo "  @tailwind components;"
         echo "  @tailwind utilities;"
+        errors=$((errors + 1))
     fi
     
     # Check for CSS variables
@@ -68,6 +70,7 @@ if [ -f "src/index.css" ] || [ -f "src/globals.css" ] || [ -f "app/globals.css" 
     fi
 else
     echo -e "${RED}✗${NC} Global CSS file not found"
+    errors=$((errors + 1))
 fi
 
 # Check if components/ui directory exists
@@ -92,9 +95,11 @@ if [ -f "src/lib/utils.ts" ] || [ -f "lib/utils.ts" ]; then
         echo -e "${GREEN}✓${NC} cn() utility function present"
     else
         echo -e "${RED}✗${NC} cn() utility function missing"
+        errors=$((errors + 1))
     fi
 else
     echo -e "${RED}✗${NC} lib/utils.ts not found"
+    errors=$((errors + 1))
 fi
 
 # Check package.json dependencies
@@ -111,6 +116,7 @@ if [ -f "package.json" ]; then
             echo -e "${GREEN}✓${NC} $dep installed"
         else
             echo -e "${RED}✗${NC} $dep not installed"
+            errors=$((errors + 1))
         fi
     done
     
@@ -126,9 +132,15 @@ if [ -f "package.json" ]; then
 fi
 
 echo ""
-echo -e "${GREEN}✓${NC} Setup verification complete!"
+if [ "$errors" -eq 0 ]; then
+    echo -e "${GREEN}✓${NC} Setup verification complete!"
+else
+    echo -e "${RED}✗${NC} Setup verification failed with $errors error(s)"
+fi
 echo ""
 echo "Next steps:"
 echo "  1. Add components: npx shadcn@latest add [component]"
 echo "  2. View catalog: npx shadcn@latest add --help"
 echo "  3. Browse docs: https://ui.shadcn.com"
+
+exit "$errors"

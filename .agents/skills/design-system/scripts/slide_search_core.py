@@ -322,7 +322,7 @@ def should_use_full_bleed(slide_index, total_slides, emotion):
     return slide_index in strategic_positions
 
 
-def calculate_pattern_break(slide_index, total_slides, previous_emotion=None):
+def calculate_pattern_break(slide_index, total_slides, previous_emotion=None, current_emotion=None):
     """
     Determine if this slide should break the visual pattern.
     Used for emotional contrast (Duarte Sparkline technique).
@@ -336,14 +336,15 @@ def calculate_pattern_break(slide_index, total_slides, previous_emotion=None):
     if slide_index in [third, third * 2]:
         return True
 
-    # Break when switching between frustration and hope
+    # Break when the current slide's emotion contrasts the previous one
     contrasting_emotions = {
         "frustration": ["hope", "relief"],
         "hope": ["frustration", "fear"],
         "fear": ["hope", "relief"],
     }
 
-    if previous_emotion in contrasting_emotions:
+    if (previous_emotion in contrasting_emotions
+            and current_emotion in contrasting_emotions[previous_emotion]):
         return True
 
     return False
@@ -365,18 +366,32 @@ def search_with_context(query, slide_position=1, total_slides=9, previous_emotio
     # Get base results from existing BM25 search
     base_results = search_all(query, max_results=2)
 
-    # Detect likely slide goal from query
-    goal = detect_domain(query.lower())
-    if "problem" in query.lower():
-        goal = "problem"
-    elif "solution" in query.lower():
-        goal = "solution"
-    elif "cta" in query.lower() or "call to action" in query.lower():
-        goal = "cta"
-    elif "hook" in query.lower() or "title" in query.lower():
-        goal = "hook"
-    elif "traction" in query.lower() or "metric" in query.lower():
-        goal = "traction"
+    # Detect likely slide goal from query — match CSV goal values before domain fallback
+    q = query.lower()
+    goal_keywords = [
+        ("hook",       ["hook", "title slide", "opening"]),
+        ("problem",    ["problem"]),
+        ("agitation",  ["agitation", "pain point", "fear"]),
+        ("solution",   ["solution"]),
+        ("proof",      ["proof", "case study", "evidence"]),
+        ("social",     ["social proof", "testimonial", "review"]),
+        ("comparison", ["comparison", "compare", " vs ", "versus"]),
+        ("traction",   ["traction", "metric", "growth"]),
+        ("cta",        ["cta", "call to action"]),
+        ("team",       ["team", "founders", "people", "about us"]),
+        ("pricing",    ["pricing", "price", "cost", "plan"]),
+        ("demo",       ["demo", "product tour", "walkthrough"]),
+        ("vision",     ["vision", "future", "opportunity", "market"]),
+        ("timeline",   ["timeline", "roadmap", "milestones"]),
+        ("features",   ["features", "capabilities", "what we do"]),
+    ]
+    goal = None
+    for goal_name, keywords in goal_keywords:
+        if any(kw in q for kw in keywords):
+            goal = goal_name
+            break
+    if goal is None:
+        goal = detect_domain(q)
 
     # Enrich with contextual recommendations
     context = {
