@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "skills": {
+    "ai-video-generation": {
+      "source": "prime-skills/runcomfy-agent-skills",
+      "sourceType": "github",
+      "skillPath": "ai-video-generation/SKILL.md",
+      "computedHash": "e7a373961e0196280ecf1de3ddbfb10c5a74f3f5305cb2718284e6f06b1c7d65"
+    },
+    "brandkit": {
+      "source": "leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/brandkit/SKILL.md",
+      "computedHash": "b63012f3c3d21197e0185d3e9cc7ec40c589fb10e0b5a32a561739de31aa3f20"
+    },
+    "claude-handoff": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/in-progress/claude-handoff/SKILL.md",
+      "computedHash": "f8c4754a25aa4e12601ce69db4388bb0d30ca526b225351180c5b0d2a4649a95"
+    },
+    "codebase-design": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/codebase-design/SKILL.md",
+      "computedHash": "5a17552cc1482f1a40124bf4e6c9dbd90ac0dbb47e71c07d47369f9e5f2ae3b5"
+    },
+    "coss": {
+      "source": "cosscom/coss",
+      "sourceType": "github",
+      "skillPath": "apps/ui/skills/coss/SKILL.md",
+      "computedHash": "8e256425cbf2780c0ff462d1867bc085608915e5a3566e2d2b1c4e0faa40469b"
+    },
+    "coss-particles": {
+      "source": "cosscom/coss",
+      "sourceType": "github",
+      "skillPath": "apps/ui/skills/coss-particles/SKILL.md",
+      "computedHash": "a3448e835713342e4625d1f97a38265fea03cf840723ad23eeef0b53dcc21609"
+    },
+    "design-system": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-system/SKILL.md",
+      "computedHash": "c50a1a77394e988b2593ed97f95ae28b5167eb8a826385b5996d67e398d15b6a"
+    },
+    "extract-design-system": {
+      "source": "arvindrk/extract-design-system",
+      "sourceType": "github",
+      "skillPath": "skills/extract-design-system/SKILL.md",
+      "computedHash": "5f231fda377e304b202848f09ecc0fd42839355e76f60e06c3ceb7a643c15500"
+    },
+    "find-animation-opportunities": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-animation-opportunities/SKILL.md",
+      "computedHash": "465d087c41768e4f14ed640dd049036009f613feb55baaa5831b68b33178f9d2"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396"
+    },
+    "hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes/SKILL.md",
+      "computedHash": "30cea07e881cd0e671bc0af01a4ca4bad23243847a4fc8a699d58242d0f05710"
+    },
+    "hyperframes-core": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-core/SKILL.md",
+      "computedHash": "261780c24317f4861165d0c23e1ac293ac9c85024c267cb5fb037627a23c1f8b"
+    },
+    "hyperframes-keyframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-keyframes/SKILL.md",
+      "computedHash": "fc5657f4f5cbbeeab23f951ed739e0fe9e29a9865cdabb80d9e87840628a2a46"
+    },
+    "idea-refine": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/idea-refine/SKILL.md",
+      "computedHash": "9fc0ae5d8a074872a636d22f9c6fe71e041b86cddc9fe5af90ef654f5032ec5d"
+    },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "d4cfdc3b7a18041ff02e1ad4b6377450e978e10928ba7e96377ff7d66994b490"
+    },
+    "kling-3-0": {
+      "source": "prime-skills/runcomfy-agent-skills",
+      "sourceType": "github",
+      "skillPath": "kling-3-0/SKILL.md",
+      "computedHash": "9eecfd9b35848d58a46e83acfb69325a2bf7960842b0b372ca33b29c0e154fc9"
+    },
+    "motion-graphics": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/motion-graphics/SKILL.md",
+      "computedHash": "62b6e2d32dd922e31afd9b9d7851dfab5a70186bdeb3c7cdb0fb0a974dc3423c"
+    },
+    "pptx": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/pptx/SKILL.md",
+      "computedHash": "82eaf5daede5a1779aa17ccf06597cb209a0c2bd41d3a2f18bd45e0301a387fb"
+    },
+    "reddit-automation": {
+      "source": "flowkit-labs/skills",
+      "sourceType": "github",
+      "skillPath": "reddit-automation/SKILL.md",
+      "computedHash": "b9541be8aa1d4b0fa2e91730bc93e810c02bfb639aa951ad9a1a7612e4666c02"
+    },
+    "remotion-maps": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-maps/SKILL.md",
+      "computedHash": "0687277c429db56e8336c8bbd3afaf2fa0f1818a05cfa706615875fbe759fced"
+    },
+    "shadcn": {
+      "source": "shadcn-ui/ui",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "f615de216e085a84e31593ad0fa9062232adc40cd87b7c7ab2b8e49abf6500be"
+    },
+    "shadcn-ui": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/stitch-build/skills/shadcn-ui/SKILL.md",
+      "computedHash": "6c1f0ce10a1ceaee5715a1e50a2e3a3159496910364d643bc2a8cab3f2eec4a8"
+    }
+  }
+}
